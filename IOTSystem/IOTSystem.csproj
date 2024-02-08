@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{82DE66FA-A3D4-48DD-9E0B-FE307790A0FA}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>IOTSystem</RootNamespace>
+    <AssemblyName>IOTSystem</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="FontAwesome.Sharp, Version=6.3.0.0, Culture=neutral, PublicKeyToken=d16d1e4e568ec10f, processorArchitecture=MSIL">
+      <HintPath>..\packages\FontAwesome.Sharp.6.3.0\lib\net48\FontAwesome.Sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject, Version=3.3.6.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.3.6\lib\net45\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Business\Abstract\IIncomeReasonService.cs" />
+    <Compile Include="Business\Abstract\IIncomeService.cs" />
+    <Compile Include="Business\Abstract\IOutcomeService.cs" />
+    <Compile Include="Business\Abstract\IUserService.cs" />
+    <Compile Include="Business\BusinessModule.cs" />
+    <Compile Include="Business\Concrete\IncomeReasonService.cs" />
+    <Compile Include="Business\Concrete\IncomeService.cs" />
+    <Compile Include="Business\Concrete\OutcomeService.cs" />
+    <Compile Include="Business\Concrete\UserService.cs" />
+    <Compile Include="Business\Dto\UserLogin.cs" />
+    <Compile Include="Business\Dto\UserRegister.cs" />
+    <Compile Include="DataAccess\Abstract\IEntityRepository.cs" />
+    <Compile Include="DataAccess\Abstract\IIncomeReasonRepository.cs" />
+    <Compile Include="DataAccess\Abstract\IIncomeRepository.cs" />
+    <Compile Include="DataAccess\Abstract\IOutcomeRepository.cs" />
+    <Compile Include="DataAccess\Abstract\IUserRepository.cs" />
+    <Compile Include="DataAccess\Concrete\EntityRepositoryBase.cs" />
+    <Compile Include="DataAccess\Concrete\IncomeReasonRepository.cs" />
+    <Compile Include="DataAccess\Concrete\IncomeRepository.cs" />
+    <Compile Include="DataAccess\Concrete\OutcomeRepository.cs" />
+    <Compile Include="DataAccess\Concrete\UserRepository.cs" />
+    <Compile Include="DataAccess\DataAccessModule.cs" />
+    <Compile Include="DataAccess\IOTContext.cs" />
+    <Compile Include="Entities\Abstract\IEntity.cs" />
+    <Compile Include="Entities\Concrete\Income.cs" />
+    <Compile Include="Entities\Concrete\IncomeReason.cs" />
+    <Compile Include="Entities\Concrete\Outcome.cs" />
+    <Compile Include="Entities\Concrete\User.cs" />
+    <Compile Include="Extensions\DbSetExtensions.cs" />
+    <Compile Include="Extensions\IQueryableExtensions.cs" />
+    <Compile Include="Extensions\ObjectExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Helpers\HashingHelper.cs" />
+    <Compile Include="Helpers\Messages.cs" />
+    <Compile Include="IoC\InstanceFactory.cs" />
+    <Compile Include="WinUI\Custom\Controls\DevComboBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WinUI\Custom\Controls\DevDateTimePicker.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WinUI\Custom\Controls\DevTextBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WinUI\Custom\Controls\DevTextBox.Designer.cs">
+      <DependentUpon>DevTextBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WinUI\Custom\DropShadowing\DropShadow.cs" />
+    <Compile Include="WinUI\Custom\Helpers\ConfigurationHelper.cs" />
+    <Compile Include="WinUI\Custom\MessageBox\DevMessageBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WinUI\Custom\MessageBox\DevMessageBox.Designer.cs">
+      <DependentUpon>DevMessageBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WinUI\Custom\MessageBox\DevMsgBox.cs" />
+    <Compile Include="WinUI\IncomeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WinUI\IncomeForm.Designer.cs">
+      <DependentUpon>IncomeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WinUI\HomeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WinUI\HomeForm.Designer.cs">
+      <DependentUpon>HomeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WinUI\IncomeOutcomeTracking.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WinUI\IncomeOutcomeTracking.Designer.cs">
+      <DependentUpon>IncomeOutcomeTracking.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WinUI\IncomeReasonForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WinUI\IncomeReasonForm.Designer.cs">
+      <DependentUpon>IncomeReasonForm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="WinUI\Custom\MessageBox\DevMessageBox.resx">
+      <DependentUpon>DevMessageBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WinUI\IncomeForm.resx">
+      <DependentUpon>IncomeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WinUI\HomeForm.resx">
+      <DependentUpon>HomeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WinUI\IncomeOutcomeTracking.resx">
+      <DependentUpon>IncomeOutcomeTracking.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="WinUI\IncomeReasonForm.resx">
+      <DependentUpon>IncomeReasonForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\calendarDark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\calendarWhite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\chat.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\exclamation.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\information.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\question.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+</Project>
