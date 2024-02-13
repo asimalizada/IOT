@@ -163,7 +163,7 @@ namespace IOTSystem.WinUI
 
         private void tbxNameSearch__TextChanged(object sender, EventArgs e)
         {
-
+            dgwReasons.DataSource = _service.GetByName(tbxName.Texts.Trim());
         }
 
         private void dgwReasons_CellDoubleClick(object sender, DataGridViewCellEventArgs e)

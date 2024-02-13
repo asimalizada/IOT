@@ -15,6 +15,6 @@ namespace IOTSystem.Business.Abstract
 
         List<IncomeReason> GetAll();
 
-        List<IncomeReason> GetByname(string name);
+        List<IncomeReason> GetByName(string name);
     }
 }

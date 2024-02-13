@@ -15,6 +15,7 @@ namespace IOTSystem.WinUI
         internal User User { get; set; }
 
         private readonly IIncomeService _service;
+        private readonly IIncomeReasonService _reasonService;
 
         public IncomeForm()
         {
@@ -26,11 +27,21 @@ namespace IOTSystem.WinUI
         {
             DesignDataGridView(dgwIncomes);
             LoadData();
+            LoadReasons();
         }
 
         private void LoadData()
         {
             dgwIncomes.DataSource = _service.GetAll();
+        }
+
+        private void LoadReasons()
+        {
+            var data = _reasonService.GetAll();
+
+            cmbReasons.DataSource = data;
+            cmbReasons.ValueMember = "Id";
+            cmbReasons.DisplayMember = "Name";
         }
 
         public bool HandleException(Action action)
@@ -201,7 +212,10 @@ namespace IOTSystem.WinUI
 
         private void btnReasons_Click(object sender, EventArgs e)
         {
+            var form = new IncomeReasonForm();
+            form.ShowDialog();
 
+            LoadReasons();
         }
     }
 }

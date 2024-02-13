@@ -43,9 +43,9 @@ namespace IOTSystem.Business.Concrete
             return _incomeReasonRepository.GetAll();
         }
 
-        public List<IncomeReason> GetByname(string name)
+        public List<IncomeReason> GetByName(string name)
         {
-            return _incomeReasonRepository.GetAll(i => i.Name.Contains(name));
+            return _incomeReasonRepository.GetAll(i => i.Name.ToLower().Contains(name.ToLower()));
         }
 
         public IncomeReason Update(IncomeReason incomeReason)
