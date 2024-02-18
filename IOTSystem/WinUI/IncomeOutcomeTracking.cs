@@ -63,6 +63,11 @@ namespace IOTSystem.WinUI
 
         }
 
+        private void btnBalance_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void DesignDataGrid(DataGridView dataGridView)
         {
             dataGridView.RowHeadersVisible = false;
@@ -114,5 +119,6 @@ namespace IOTSystem.WinUI
 
             this.DesignDataGrid(dgwBase);
         }
+
     }
 }

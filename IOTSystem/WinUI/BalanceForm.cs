@@ -5,46 +5,30 @@ using IOTSystem.Entities.Concrete;
 using IOTSystem.Helpers;
 using IOTSystem.IoC;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace IOTSystem.WinUI
 {
-    public partial class IncomeForm : Form
+    public partial class BalanceForm : Form
     {
-        internal User User { get; set; }
+        private readonly IBalanceService _service;
 
-        private readonly IIncomeService _service;
-        private readonly IIncomeReasonService _reasonService;
-
-        public IncomeForm()
+        public BalanceForm()
         {
             InitializeComponent();
-            _service = InstanceFactory.GetInstance<IIncomeService>(new BusinessModule());
-            _reasonService = InstanceFactory.GetInstance<IIncomeReasonService>(new BusinessModule());
+            _service = InstanceFactory.GetInstance<IBalanceService>(new BusinessModule());
         }
 
-        private void IncomeForm_Load(object sender, System.EventArgs e)
+        private void BalanceForm_Load(object sender, EventArgs e)
         {
-            DesignDataGridView(dgwIncomes);
             LoadData();
-            LoadReasons();
+            DesignDataGridView(dgwBalances);
         }
 
         private void LoadData()
         {
-            dgwIncomes.DataSource = _service.GetAll();
-        }
-
-        private void LoadReasons()
-        {
-            var data = _reasonService.GetAll();
-
-            cmbReasons.DataSource = data;
-            cmbReasons.ValueMember = "Id";
-            cmbReasons.DisplayMember = "Name";
+            dgwBalances.DataSource = _service.GetAll();
         }
 
         public bool HandleException(Action action)
@@ -115,45 +99,6 @@ namespace IOTSystem.WinUI
             this.DesignDataGrid(dgwBase);
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            btnCancel.Visible = false;
-            btnAdd.Enabled = true;
-            btnUpdate.Enabled = false;
-            btnDelete.Enabled = false;
-            dgwIncomes.Enabled = true;
-
-            tbxName.Texts = string.Empty;
-            tbxDescription.Texts = string.Empty;
-            dtpDate.Value = DateTime.Now;
-
-            try
-            {
-                cmbReasons.SelectedIndex = 0;
-            }
-            catch { }
-        }
-
-        private void dgwIncomes_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (dgwIncomes.Rows.Count == 0)
-                return;
-
-            btnCancel.Visible = true;
-            btnAdd.Enabled = false;
-            dgwIncomes.Enabled = false;
-            btnUpdate.Enabled = true;
-            btnDelete.Enabled = true;
-
-            var cells = dgwIncomes.CurrentRow.Cells;
-
-            tbxName.Texts = cells[1].Value.ToString();
-            tbxDescription.Texts = cells[2].Value.ToString();
-            dtpDate.Value = Convert.ToDateTime(cells[4].Value);
-            cmbReasons.SelectedValue = Convert.ToInt32(cells[3].Value);
-            nudAmount.Value = Convert.ToDecimal(cells[5].Value);
-        }
-
         private void btnAdd_Click(object sender, EventArgs e)
         {
             if (DevMsgBox.Show(Messages.AreYouSure, "System", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
@@ -161,13 +106,10 @@ namespace IOTSystem.WinUI
 
             var result = HandleException(() =>
             {
-                _service.Add(new Income
+                _service.Add(new Balance
                 {
                     Name = tbxName.Texts,
                     Description = tbxDescription.Texts,
-                    Date = dtpDate.Value,
-                    ReasonId = Convert.ToInt32(cmbReasons.SelectedValue),
-                    UserId = User is null ? 0 : User.Id,
                     Amount = nudAmount.Value
                 });
             });
@@ -183,19 +125,16 @@ namespace IOTSystem.WinUI
 
             var result = HandleException(() =>
             {
-                _service.Update(new Income
+                _service.Update(new Balance
                 {
-                    Id = Convert.ToInt32(dgwIncomes.CurrentRow.Cells[0].Value),
+                    Id = Convert.ToInt32(dgwBalances.CurrentRow.Cells[0].Value),
                     Name = tbxName.Texts,
                     Description = tbxDescription.Texts,
-                    Date = dtpDate.Value,
-                    ReasonId = Convert.ToInt32(cmbReasons.SelectedValue),
-                    UserId = User is null ? 0 : User.Id,
                     Amount = nudAmount.Value
                 });
             });
 
-            if (result)
+            if (result) 
                 LoadData();
         }
 
@@ -206,26 +145,42 @@ namespace IOTSystem.WinUI
 
             var result = HandleException(() =>
             {
-                _service.Delete(Convert.ToInt32(dgwIncomes.CurrentRow.Cells[0].Value));
+                _service.Delete(Convert.ToInt32(dgwBalances.CurrentRow.Cells[0].Value));
             });
 
             if (result)
                 LoadData();
         }
 
-        private void btnReasons_Click(object sender, EventArgs e)
+        private void btnCancel_Click(object sender, EventArgs e)
         {
-            var form = new IncomeReasonForm();
-            form.ShowDialog();
+            btnCancel.Visible = false;
+            btnAdd.Enabled = true;
+            btnUpdate.Enabled = false;
+            btnDelete.Enabled = false;
+            dgwBalances.Enabled = true;
 
-            LoadReasons();
+            tbxName.Texts = string.Empty;
+            tbxDescription.Texts = string.Empty;
+            nudAmount.Value = 0;
         }
 
-        private void cmbReasons_OnSelectedIndexChanged(object sender, EventArgs e)
+        private void dgwBalances_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            var selectedItem = (cmbReasons.DataSource as List<IncomeReason>).FirstOrDefault(r => r.Id == (int)cmbReasons.SelectedValue);
-            if(selectedItem != null && selectedItem.Amount != null && selectedItem.Amount != 0)
-            nudAmount.Value = selectedItem.Amount ?? 0;
+            if (dgwBalances.Rows.Count == 0)
+                return;
+
+            btnCancel.Visible = true;
+            btnAdd.Enabled = false;
+            dgwBalances.Enabled = false;
+            btnUpdate.Enabled = true;
+            btnDelete.Enabled = true;
+
+            var cells = dgwBalances.CurrentRow.Cells;
+
+            tbxName.Texts = cells[1].Value.ToString();
+            tbxDescription.Texts = cells[2].Value.ToString();
+            nudAmount.Value = Convert.ToDecimal(cells[3].Value);
         }
     }
 }

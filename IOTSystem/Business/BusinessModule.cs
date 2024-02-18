@@ -13,6 +13,7 @@ namespace IOTSystem.Business
             Bind<IOutcomeService>().To<OutcomeService>().InSingletonScope();
             Bind<IIncomeReasonService>().To<IncomeReasonService>().InSingletonScope();
             Bind<IOutcomeReasonService>().To<OutcomeReasonService>().InSingletonScope();
+            Bind<IBalanceService>().To<BalanceService>().InSingletonScope();
         }
     }
 }

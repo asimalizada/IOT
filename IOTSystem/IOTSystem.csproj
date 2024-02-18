@@ -68,12 +68,14 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Business\Abstract\IBalanceService.cs" />
     <Compile Include="Business\Abstract\IOutcomeReasonService.cs" />
     <Compile Include="Business\Abstract\IIncomeReasonService.cs" />
     <Compile Include="Business\Abstract\IIncomeService.cs" />
     <Compile Include="Business\Abstract\IOutcomeService.cs" />
     <Compile Include="Business\Abstract\IUserService.cs" />
     <Compile Include="Business\BusinessModule.cs" />
+    <Compile Include="Business\Concrete\BalanceService.cs" />
     <Compile Include="Business\Concrete\OutcomeReasonService.cs" />
     <Compile Include="Business\Concrete\IncomeReasonService.cs" />
     <Compile Include="Business\Concrete\IncomeService.cs" />
@@ -81,12 +83,14 @@
     <Compile Include="Business\Concrete\UserService.cs" />
     <Compile Include="Business\Dto\UserLogin.cs" />
     <Compile Include="Business\Dto\UserRegister.cs" />
+    <Compile Include="DataAccess\Abstract\IBalanceRepository.cs" />
     <Compile Include="DataAccess\Abstract\IEntityRepository.cs" />
     <Compile Include="DataAccess\Abstract\IIncomeReasonRepository.cs" />
     <Compile Include="DataAccess\Abstract\IOutcomeReasonRepository.cs" />
     <Compile Include="DataAccess\Abstract\IIncomeRepository.cs" />
     <Compile Include="DataAccess\Abstract\IOutcomeRepository.cs" />
     <Compile Include="DataAccess\Abstract\IUserRepository.cs" />
+    <Compile Include="DataAccess\Concrete\BalanceRepository.cs" />
     <Compile Include="DataAccess\Concrete\EntityRepositoryBase.cs" />
     <Compile Include="DataAccess\Concrete\OutcomeReasonRepository.cs" />
     <Compile Include="DataAccess\Concrete\IncomeReasonRepository.cs" />
@@ -96,6 +100,7 @@
     <Compile Include="DataAccess\DataAccessModule.cs" />
     <Compile Include="DataAccess\IOTContext.cs" />
     <Compile Include="Entities\Abstract\IEntity.cs" />
+    <Compile Include="Entities\Concrete\Balance.cs" />
     <Compile Include="Entities\Concrete\Income.cs" />
     <Compile Include="Entities\Concrete\OutcomeReason.cs" />
     <Compile Include="Entities\Concrete\IncomeReason.cs" />
@@ -108,6 +113,12 @@
     <Compile Include="Helpers\HashingHelper.cs" />
     <Compile Include="Helpers\Messages.cs" />
     <Compile Include="IoC\InstanceFactory.cs" />
+    <Compile Include="WinUI\BalanceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WinUI\BalanceForm.Designer.cs">
+      <DependentUpon>BalanceForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="WinUI\Custom\Controls\DevComboBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -167,6 +178,9 @@
     <Compile Include="WinUI\IncomeReasonForm.Designer.cs">
       <DependentUpon>IncomeReasonForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="WinUI\BalanceForm.resx">
+      <DependentUpon>BalanceForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="WinUI\Custom\MessageBox\DevMessageBox.resx">
       <DependentUpon>DevMessageBox.cs</DependentUpon>
     </EmbeddedResource>

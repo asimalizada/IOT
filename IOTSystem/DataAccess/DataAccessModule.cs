@@ -13,6 +13,7 @@ namespace IOTSystem.DataAccess
             Bind<IOutcomeRepository>().To<OutcomeRepository>().InSingletonScope();
             Bind<IIncomeReasonRepository>().To<IncomeReasonRepository>().InSingletonScope();
             Bind<IOutcomeReasonRepository>().To<OutcomeReasonRepository>().InSingletonScope();
+            Bind<IBalanceRepository>().To<BalanceRepository>().InSingletonScope();
         }
     }
 }

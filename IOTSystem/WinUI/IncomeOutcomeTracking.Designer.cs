@@ -30,19 +30,21 @@
         {
             this.panelNavbar = new System.Windows.Forms.Panel();
             this.lblUsername = new System.Windows.Forms.Label();
-            this.btnReports = new FontAwesome.Sharp.IconButton();
             this.btnOutcome = new FontAwesome.Sharp.IconButton();
             this.btnIncome = new FontAwesome.Sharp.IconButton();
             this.btnHome = new FontAwesome.Sharp.IconButton();
             this.panelContainer = new System.Windows.Forms.Panel();
+            this.btnBalance = new FontAwesome.Sharp.IconButton();
+            this.btnReports = new FontAwesome.Sharp.IconButton();
             this.panelNavbar.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelNavbar
             // 
             this.panelNavbar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.panelNavbar.Controls.Add(this.lblUsername);
             this.panelNavbar.Controls.Add(this.btnReports);
+            this.panelNavbar.Controls.Add(this.btnBalance);
+            this.panelNavbar.Controls.Add(this.lblUsername);
             this.panelNavbar.Controls.Add(this.btnOutcome);
             this.panelNavbar.Controls.Add(this.btnIncome);
             this.panelNavbar.Controls.Add(this.btnHome);
@@ -64,25 +66,6 @@
             this.lblUsername.TabIndex = 4;
             this.lblUsername.Text = "Username";
             this.lblUsername.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // btnReports
-            // 
-            this.btnReports.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnReports.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnReports.FlatAppearance.BorderSize = 0;
-            this.btnReports.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnReports.Font = new System.Drawing.Font("Comic Sans MS", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReports.ForeColor = System.Drawing.Color.Gainsboro;
-            this.btnReports.IconChar = FontAwesome.Sharp.IconChar.None;
-            this.btnReports.IconColor = System.Drawing.Color.Black;
-            this.btnReports.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnReports.Location = new System.Drawing.Point(425, 5);
-            this.btnReports.Name = "btnReports";
-            this.btnReports.Size = new System.Drawing.Size(140, 50);
-            this.btnReports.TabIndex = 3;
-            this.btnReports.Text = "Reports";
-            this.btnReports.UseVisualStyleBackColor = true;
-            this.btnReports.Click += new System.EventHandler(this.btnReports_Click);
             // 
             // btnOutcome
             // 
@@ -150,6 +133,44 @@
             this.panelContainer.Size = new System.Drawing.Size(1200, 636);
             this.panelContainer.TabIndex = 1;
             // 
+            // btnBalance
+            // 
+            this.btnBalance.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnBalance.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnBalance.FlatAppearance.BorderSize = 0;
+            this.btnBalance.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBalance.Font = new System.Drawing.Font("Comic Sans MS", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBalance.ForeColor = System.Drawing.Color.Gainsboro;
+            this.btnBalance.IconChar = FontAwesome.Sharp.IconChar.None;
+            this.btnBalance.IconColor = System.Drawing.Color.Black;
+            this.btnBalance.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnBalance.Location = new System.Drawing.Point(425, 5);
+            this.btnBalance.Name = "btnBalance";
+            this.btnBalance.Size = new System.Drawing.Size(140, 50);
+            this.btnBalance.TabIndex = 5;
+            this.btnBalance.Text = "Balance";
+            this.btnBalance.UseVisualStyleBackColor = true;
+            this.btnBalance.Click += new System.EventHandler(this.btnBalance_Click);
+            // 
+            // btnReports
+            // 
+            this.btnReports.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnReports.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnReports.FlatAppearance.BorderSize = 0;
+            this.btnReports.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnReports.Font = new System.Drawing.Font("Comic Sans MS", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReports.ForeColor = System.Drawing.Color.Gainsboro;
+            this.btnReports.IconChar = FontAwesome.Sharp.IconChar.None;
+            this.btnReports.IconColor = System.Drawing.Color.Black;
+            this.btnReports.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnReports.Location = new System.Drawing.Point(565, 5);
+            this.btnReports.Name = "btnReports";
+            this.btnReports.Size = new System.Drawing.Size(140, 50);
+            this.btnReports.TabIndex = 6;
+            this.btnReports.Text = "Reports";
+            this.btnReports.UseVisualStyleBackColor = true;
+            this.btnReports.Click += new System.EventHandler(this.btnReports_Click);
+            // 
             // IncomeOutcomeTracking
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
@@ -175,9 +196,10 @@
         private FontAwesome.Sharp.IconButton btnHome;
         private FontAwesome.Sharp.IconButton btnIncome;
         private FontAwesome.Sharp.IconButton btnOutcome;
-        private FontAwesome.Sharp.IconButton btnReports;
         private System.Windows.Forms.Label lblUsername;
         private System.Windows.Forms.Panel panelContainer;
+        private FontAwesome.Sharp.IconButton btnReports;
+        private FontAwesome.Sharp.IconButton btnBalance;
     }
 }
 
