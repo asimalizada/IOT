@@ -18,8 +18,6 @@ namespace IOTSystem.Entities.Concrete
 
         public DateTime Date { get; set; }
 
-        public int UserId { get; set; }
-
         public int Alternative { get; set; }
 
         public bool IsAlternative { get; set; }

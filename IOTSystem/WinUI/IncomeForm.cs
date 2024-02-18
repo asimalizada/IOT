@@ -14,8 +14,6 @@ namespace IOTSystem.WinUI
 {
     public partial class IncomeForm : Form
     {
-        internal User User { get; set; }
-
         private readonly IIncomeService _service;
         private readonly IIncomeReasonService _reasonService;
 
@@ -167,7 +165,6 @@ namespace IOTSystem.WinUI
                     Description = tbxDescription.Texts,
                     Date = dtpDate.Value,
                     ReasonId = Convert.ToInt32(cmbReasons.SelectedValue),
-                    UserId = User is null ? 0 : User.Id,
                     Amount = nudAmount.Value
                 });
             });
@@ -190,7 +187,6 @@ namespace IOTSystem.WinUI
                     Description = tbxDescription.Texts,
                     Date = dtpDate.Value,
                     ReasonId = Convert.ToInt32(cmbReasons.SelectedValue),
-                    UserId = User is null ? 0 : User.Id,
                     Amount = nudAmount.Value
                 });
             });

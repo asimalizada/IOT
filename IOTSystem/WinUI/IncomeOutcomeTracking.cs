@@ -1,5 +1,4 @@
 ﻿using FontAwesome.Sharp;
-using IOTSystem.Entities.Concrete;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -11,8 +10,6 @@ namespace IOTSystem.WinUI
         private Form _activeForm;
         private IconButton _currentButton;
 
-        internal User User { get; set; }
-
         public IncomeOutcomeTracking()
         {
             InitializeComponent();
@@ -20,7 +17,6 @@ namespace IOTSystem.WinUI
 
         private void IncomeOutcomeTracking_Load(object sender, EventArgs e)
         {
-            lblUsername.Text = User?.Username;
             OpenChildForm(new HomeForm(), btnHome);
         }
 
@@ -50,12 +46,12 @@ namespace IOTSystem.WinUI
 
         private void btnIncome_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new IncomeForm { User = User}, (IconButton)sender);
+            OpenChildForm(new IncomeForm(), (IconButton)sender);
         }
 
         private void btnOutcome_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new OutcomeForm { User = User }, (IconButton)sender);
+            OpenChildForm(new OutcomeForm(), (IconButton)sender);
         }
 
         private void btnReports_Click(object sender, EventArgs e)
@@ -65,7 +61,7 @@ namespace IOTSystem.WinUI
 
         private void btnBalance_Click(object sender, EventArgs e)
         {
-
+            OpenChildForm(new BalanceForm(), (IconButton)sender);
         }
 
         private void DesignDataGrid(DataGridView dataGridView)
