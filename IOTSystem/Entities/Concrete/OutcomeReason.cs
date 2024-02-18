@@ -3,14 +3,19 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace IOTSystem.Entities.Concrete
 {
-    internal class User : IEntity
+    public class OutcomeReason : IEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
-        public string Username { get; set; }
+        public string Name { get; set; }
 
-        public byte[] Password { get; set; }
+        public decimal? Amount { get; set; }
+
+        public bool IsValid()
+        {
+            return !string.IsNullOrWhiteSpace(Name) && Name.Length > 0;
+        }
     }
 }

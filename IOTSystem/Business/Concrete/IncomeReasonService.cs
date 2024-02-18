@@ -65,7 +65,10 @@ namespace IOTSystem.Business.Concrete
             var alikes = _incomeReasonRepository.GetAll(i => i.Name == incomeReason.Name);
 
             if (alikes != null && alikes.Any())
-                throw new Exception(Messages.InvalidData);
+                throw new Exception(Messages.DataExists);
+
+            if (incomeReason.Amount == -1)
+                incomeReason.Amount = null;
         }
     }
 }

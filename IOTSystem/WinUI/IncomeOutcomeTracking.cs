@@ -55,7 +55,7 @@ namespace IOTSystem.WinUI
 
         private void btnOutcome_Click(object sender, EventArgs e)
         {
-
+            OpenChildForm(new OutcomeForm { User = User }, (IconButton)sender);
         }
 
         private void btnReports_Click(object sender, EventArgs e)

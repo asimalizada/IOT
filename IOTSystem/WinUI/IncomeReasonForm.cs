@@ -5,6 +5,7 @@ using IOTSystem.Entities.Concrete;
 using IOTSystem.Helpers;
 using IOTSystem.IoC;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -13,16 +14,18 @@ namespace IOTSystem.WinUI
     public partial class IncomeReasonForm : Form
     {
         private readonly IIncomeReasonService _service;
+        private bool _loaded;
 
         public IncomeReasonForm()
         {
             InitializeComponent();
             _service = InstanceFactory.GetInstance<IIncomeReasonService>(new BusinessModule());
+            _loaded = false;
         }
 
         private void IncomeReasonForm_Load(object sender, EventArgs e)
         {
-            LoadData();
+            DesignDataGridView(this.dgwReasons);
         }
 
         private void LoadData()
@@ -100,6 +103,7 @@ namespace IOTSystem.WinUI
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            var val = this.dgwReasons.DataSource;
             if (DevMsgBox.Show(Messages.AreYouSure, "System", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
                 return;
 
@@ -112,7 +116,7 @@ namespace IOTSystem.WinUI
                 });
             });
 
-            if(result)
+            if (result)
                 LoadData();
         }
 
@@ -181,6 +185,15 @@ namespace IOTSystem.WinUI
 
             tbxName.Texts = cells[1].Value.ToString();
             nudAmount.Value = Convert.ToDecimal(cells[2].Value);
+        }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            if (_loaded)
+                return;
+
+            LoadData();
+            _loaded = true;
         }
     }
 }

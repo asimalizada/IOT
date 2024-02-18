@@ -1,9 +1,13 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace IOTSystem.Entities.Concrete
 {
     internal class Outcome : IEntity
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
         public string Name { get; set; }
@@ -20,10 +24,12 @@ namespace IOTSystem.Entities.Concrete
 
         public bool IsAlternative { get; set; }
 
+        public decimal Amount { get; set; }
+
         public bool IsValid()
         {
-            return string.IsNullOrWhiteSpace(Name) && Name.Length > 0
-                && ReasonId != 0 && Date != null && UserId != 0;
+            return !string.IsNullOrWhiteSpace(Name) && Name.Length > 0
+                && ReasonId != 0 && Date != null;
         }
     }
 }

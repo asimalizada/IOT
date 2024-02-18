@@ -12,5 +12,8 @@ namespace IOTSystem.DataAccess
         public DbSet<Outcome> Outcomes { get; set; }
 
         public DbSet<IncomeReason> IncomeReasons { get; set; }
+
+        public DbSet<OutcomeReason> OutcomeReasons { get; set; }
+
     }
 }

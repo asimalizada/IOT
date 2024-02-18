@@ -12,30 +12,30 @@ using System.Windows.Forms;
 
 namespace IOTSystem.WinUI
 {
-    public partial class IncomeForm : Form
+    public partial class OutcomeForm : Form
     {
         internal User User { get; set; }
 
-        private readonly IIncomeService _service;
-        private readonly IIncomeReasonService _reasonService;
+        private readonly IOutcomeService _service;
+        private readonly IOutcomeReasonService _reasonService;
 
-        public IncomeForm()
+        public OutcomeForm()
         {
             InitializeComponent();
-            _service = InstanceFactory.GetInstance<IIncomeService>(new BusinessModule());
-            _reasonService = InstanceFactory.GetInstance<IIncomeReasonService>(new BusinessModule());
+            _service = InstanceFactory.GetInstance<IOutcomeService>(new BusinessModule());
+            _reasonService = InstanceFactory.GetInstance<IOutcomeReasonService>(new BusinessModule());
         }
 
-        private void IncomeForm_Load(object sender, System.EventArgs e)
+        private void OutcomeForm_Load(object sender, System.EventArgs e)
         {
-            DesignDataGridView(dgwIncomes);
+            DesignDataGridView(dgwOutcomes);
             LoadData();
             LoadReasons();
         }
 
         private void LoadData()
         {
-            dgwIncomes.DataSource = _service.GetAll();
+            dgwOutcomes.DataSource = _service.GetAll();
         }
 
         private void LoadReasons()
@@ -121,7 +121,7 @@ namespace IOTSystem.WinUI
             btnAdd.Enabled = true;
             btnUpdate.Enabled = false;
             btnDelete.Enabled = false;
-            dgwIncomes.Enabled = true;
+            dgwOutcomes.Enabled = true;
 
             tbxName.Texts = string.Empty;
             tbxDescription.Texts = string.Empty;
@@ -134,18 +134,18 @@ namespace IOTSystem.WinUI
             catch { }
         }
 
-        private void dgwIncomes_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void dgwOutcomes_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (dgwIncomes.Rows.Count == 0)
+            if (dgwOutcomes.Rows.Count == 0)
                 return;
 
             btnCancel.Visible = true;
             btnAdd.Enabled = false;
-            dgwIncomes.Enabled = false;
+            dgwOutcomes.Enabled = false;
             btnUpdate.Enabled = true;
             btnDelete.Enabled = true;
 
-            var cells = dgwIncomes.CurrentRow.Cells;
+            var cells = dgwOutcomes.CurrentRow.Cells;
 
             tbxName.Texts = cells[1].Value.ToString();
             tbxDescription.Texts = cells[2].Value.ToString();
@@ -161,7 +161,7 @@ namespace IOTSystem.WinUI
 
             var result = HandleException(() =>
             {
-                _service.Add(new Income
+                _service.Add(new Outcome
                 {
                     Name = tbxName.Texts,
                     Description = tbxDescription.Texts,
@@ -183,9 +183,9 @@ namespace IOTSystem.WinUI
 
             var result = HandleException(() =>
             {
-                _service.Update(new Income
+                _service.Update(new Outcome
                 {
-                    Id = Convert.ToInt32(dgwIncomes.CurrentRow.Cells[0].Value),
+                    Id = Convert.ToInt32(dgwOutcomes.CurrentRow.Cells[0].Value),
                     Name = tbxName.Texts,
                     Description = tbxDescription.Texts,
                     Date = dtpDate.Value,
@@ -206,7 +206,7 @@ namespace IOTSystem.WinUI
 
             var result = HandleException(() =>
             {
-                _service.Delete(Convert.ToInt32(dgwIncomes.CurrentRow.Cells[0].Value));
+                _service.Delete(Convert.ToInt32(dgwOutcomes.CurrentRow.Cells[0].Value));
             });
 
             if (result)
@@ -215,7 +215,7 @@ namespace IOTSystem.WinUI
 
         private void btnReasons_Click(object sender, EventArgs e)
         {
-            var form = new IncomeReasonForm();
+            var form = new OutcomeReasonForm();
             form.ShowDialog();
 
             LoadReasons();

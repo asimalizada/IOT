@@ -1,6 +1,6 @@
 ﻿namespace IOTSystem.WinUI
 {
-    partial class IncomeReasonForm
+    partial class OutcomeReasonForm
     {
         /// <summary>
         /// Required designer variable.
@@ -312,7 +312,7 @@
             this.Padding = new System.Windows.Forms.Padding(10);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "IncomeReasonForm";
-            this.Load += new System.EventHandler(this.IncomeReasonForm_Load);
+            this.Load += new System.EventHandler(this.OutcomeReasonForm_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgwReasons)).EndInit();

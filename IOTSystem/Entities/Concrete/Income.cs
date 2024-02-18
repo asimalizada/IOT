@@ -1,9 +1,13 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace IOTSystem.Entities.Concrete
 {
     public class Income : IEntity
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
         public string Name { get; set; }
@@ -20,8 +24,8 @@ namespace IOTSystem.Entities.Concrete
 
         public bool IsValid()
         {
-            return string.IsNullOrWhiteSpace(Name) && Name.Length > 0 
-                && ReasonId != 0 && Date != null && UserId != 0 && Amount > 0;
+            return !string.IsNullOrWhiteSpace(Name) && Name.Length > 0
+                && ReasonId != 0 && Date != null && Amount > 0;
         }
     }
 }

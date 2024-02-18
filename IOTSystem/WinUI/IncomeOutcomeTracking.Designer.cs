@@ -161,6 +161,7 @@
             this.Font = new System.Drawing.Font("Comic Sans MS", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MinimumSize = new System.Drawing.Size(1000, 600);
             this.Name = "IncomeOutcomeTracking";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Income-Outcome Tracking System";
             this.Load += new System.EventHandler(this.IncomeOutcomeTracking_Load);
             this.panelNavbar.ResumeLayout(false);

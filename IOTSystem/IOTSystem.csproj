@@ -68,11 +68,13 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Business\Abstract\IOutcomeReasonService.cs" />
     <Compile Include="Business\Abstract\IIncomeReasonService.cs" />
     <Compile Include="Business\Abstract\IIncomeService.cs" />
     <Compile Include="Business\Abstract\IOutcomeService.cs" />
     <Compile Include="Business\Abstract\IUserService.cs" />
     <Compile Include="Business\BusinessModule.cs" />
+    <Compile Include="Business\Concrete\OutcomeReasonService.cs" />
     <Compile Include="Business\Concrete\IncomeReasonService.cs" />
     <Compile Include="Business\Concrete\IncomeService.cs" />
     <Compile Include="Business\Concrete\OutcomeService.cs" />
@@ -81,10 +83,12 @@
     <Compile Include="Business\Dto\UserRegister.cs" />
     <Compile Include="DataAccess\Abstract\IEntityRepository.cs" />
     <Compile Include="DataAccess\Abstract\IIncomeReasonRepository.cs" />
+    <Compile Include="DataAccess\Abstract\IOutcomeReasonRepository.cs" />
     <Compile Include="DataAccess\Abstract\IIncomeRepository.cs" />
     <Compile Include="DataAccess\Abstract\IOutcomeRepository.cs" />
     <Compile Include="DataAccess\Abstract\IUserRepository.cs" />
     <Compile Include="DataAccess\Concrete\EntityRepositoryBase.cs" />
+    <Compile Include="DataAccess\Concrete\OutcomeReasonRepository.cs" />
     <Compile Include="DataAccess\Concrete\IncomeReasonRepository.cs" />
     <Compile Include="DataAccess\Concrete\IncomeRepository.cs" />
     <Compile Include="DataAccess\Concrete\OutcomeRepository.cs" />
@@ -93,6 +97,7 @@
     <Compile Include="DataAccess\IOTContext.cs" />
     <Compile Include="Entities\Abstract\IEntity.cs" />
     <Compile Include="Entities\Concrete\Income.cs" />
+    <Compile Include="Entities\Concrete\OutcomeReason.cs" />
     <Compile Include="Entities\Concrete\IncomeReason.cs" />
     <Compile Include="Entities\Concrete\Outcome.cs" />
     <Compile Include="Entities\Concrete\User.cs" />
@@ -124,6 +129,18 @@
       <DependentUpon>DevMessageBox.cs</DependentUpon>
     </Compile>
     <Compile Include="WinUI\Custom\MessageBox\DevMsgBox.cs" />
+    <Compile Include="WinUI\OutcomeReasonForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WinUI\OutcomeReasonForm.Designer.cs">
+      <DependentUpon>OutcomeReasonForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WinUI\OutcomeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WinUI\OutcomeForm.Designer.cs">
+      <DependentUpon>OutcomeForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="WinUI\IncomeForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -152,6 +169,12 @@
     </Compile>
     <EmbeddedResource Include="WinUI\Custom\MessageBox\DevMessageBox.resx">
       <DependentUpon>DevMessageBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WinUI\OutcomeReasonForm.resx">
+      <DependentUpon>OutcomeReasonForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WinUI\OutcomeForm.resx">
+      <DependentUpon>OutcomeForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WinUI\IncomeForm.resx">
       <DependentUpon>IncomeForm.cs</DependentUpon>

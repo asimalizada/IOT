@@ -1,6 +1,6 @@
 ﻿namespace IOTSystem.WinUI
 {
-    partial class IncomeForm
+    partial class OutcomeForm
     {
         /// <summary>
         /// Required designer variable.
@@ -37,19 +37,19 @@
             this.btnDelete = new FontAwesome.Sharp.IconButton();
             this.btnUpdate = new FontAwesome.Sharp.IconButton();
             this.btnAdd = new FontAwesome.Sharp.IconButton();
-            this.lblReason = new System.Windows.Forms.Label();
-            this.lbldate = new System.Windows.Forms.Label();
-            this.lblDescription = new System.Windows.Forms.Label();
-            this.lblName = new System.Windows.Forms.Label();
-            this.dgwIncomes = new System.Windows.Forms.DataGridView();
             this.cmbReasons = new IOTSystem.WinUI.Custom.Controls.DevComboBox();
+            this.lblReason = new System.Windows.Forms.Label();
             this.dtpDate = new IOTSystem.WinUI.Custom.Controls.DevDateTimePicker();
+            this.lbldate = new System.Windows.Forms.Label();
             this.tbxDescription = new IOTSystem.WinUI.Custom.Controls.DevTextBox();
             this.tbxName = new IOTSystem.WinUI.Custom.Controls.DevTextBox();
+            this.lblDescription = new System.Windows.Forms.Label();
+            this.lblName = new System.Windows.Forms.Label();
+            this.dgwOutcomes = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel1.SuspendLayout();
             this.panelInputs.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudAmount)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgwIncomes)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgwOutcomes)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -57,7 +57,7 @@
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.panelInputs, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.dgwIncomes, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.dgwOutcomes, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -225,62 +225,6 @@
             this.btnAdd.UseVisualStyleBackColor = false;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
-            // lblReason
-            // 
-            this.lblReason.Font = new System.Drawing.Font("Comic Sans MS", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblReason.ForeColor = System.Drawing.Color.White;
-            this.lblReason.Location = new System.Drawing.Point(486, 139);
-            this.lblReason.Name = "lblReason";
-            this.lblReason.Size = new System.Drawing.Size(158, 50);
-            this.lblReason.TabIndex = 12;
-            this.lblReason.Text = "Reason *";
-            this.lblReason.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lbldate
-            // 
-            this.lbldate.Font = new System.Drawing.Font("Comic Sans MS", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbldate.ForeColor = System.Drawing.Color.White;
-            this.lbldate.Location = new System.Drawing.Point(486, 23);
-            this.lbldate.Name = "lbldate";
-            this.lbldate.Size = new System.Drawing.Size(158, 50);
-            this.lbldate.TabIndex = 10;
-            this.lbldate.Text = "Date";
-            this.lbldate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblDescription
-            // 
-            this.lblDescription.Font = new System.Drawing.Font("Comic Sans MS", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDescription.ForeColor = System.Drawing.Color.White;
-            this.lblDescription.Location = new System.Drawing.Point(9, 88);
-            this.lblDescription.Name = "lblDescription";
-            this.lblDescription.Size = new System.Drawing.Size(158, 50);
-            this.lblDescription.TabIndex = 7;
-            this.lblDescription.Text = "Description";
-            this.lblDescription.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblName
-            // 
-            this.lblName.Font = new System.Drawing.Font("Comic Sans MS", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblName.ForeColor = System.Drawing.Color.White;
-            this.lblName.Location = new System.Drawing.Point(9, 23);
-            this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(158, 50);
-            this.lblName.TabIndex = 6;
-            this.lblName.Text = "Name *";
-            this.lblName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // dgwIncomes
-            // 
-            this.dgwIncomes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgwIncomes.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgwIncomes.Location = new System.Drawing.Point(3, 317);
-            this.dgwIncomes.Name = "dgwIncomes";
-            this.dgwIncomes.RowHeadersWidth = 51;
-            this.dgwIncomes.RowTemplate.Height = 24;
-            this.dgwIncomes.Size = new System.Drawing.Size(1356, 465);
-            this.dgwIncomes.TabIndex = 1;
-            this.dgwIncomes.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwIncomes_CellDoubleClick);
-            // 
             // cmbReasons
             // 
             this.cmbReasons.BackColor = System.Drawing.Color.WhiteSmoke;
@@ -302,6 +246,17 @@
             this.cmbReasons.Texts = "";
             this.cmbReasons.OnSelectedIndexChanged += new System.EventHandler(this.cmbReasons_OnSelectedIndexChanged);
             // 
+            // lblReason
+            // 
+            this.lblReason.Font = new System.Drawing.Font("Comic Sans MS", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblReason.ForeColor = System.Drawing.Color.White;
+            this.lblReason.Location = new System.Drawing.Point(486, 139);
+            this.lblReason.Name = "lblReason";
+            this.lblReason.Size = new System.Drawing.Size(158, 50);
+            this.lblReason.TabIndex = 12;
+            this.lblReason.Text = "Reason *";
+            this.lblReason.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // dtpDate
             // 
             this.dtpDate.BorderColor = System.Drawing.Color.PaleVioletRed;
@@ -316,6 +271,17 @@
             this.dtpDate.SkinColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
             this.dtpDate.TabIndex = 11;
             this.dtpDate.TextColor = System.Drawing.Color.Gainsboro;
+            // 
+            // lbldate
+            // 
+            this.lbldate.Font = new System.Drawing.Font("Comic Sans MS", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbldate.ForeColor = System.Drawing.Color.White;
+            this.lbldate.Location = new System.Drawing.Point(486, 23);
+            this.lbldate.Name = "lbldate";
+            this.lbldate.Size = new System.Drawing.Size(158, 50);
+            this.lbldate.TabIndex = 10;
+            this.lbldate.Text = "Date";
+            this.lbldate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tbxDescription
             // 
@@ -365,7 +331,41 @@
             this.tbxName.Texts = "";
             this.tbxName.UnderlinedStyle = false;
             // 
-            // IncomeForm
+            // lblDescription
+            // 
+            this.lblDescription.Font = new System.Drawing.Font("Comic Sans MS", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDescription.ForeColor = System.Drawing.Color.White;
+            this.lblDescription.Location = new System.Drawing.Point(9, 88);
+            this.lblDescription.Name = "lblDescription";
+            this.lblDescription.Size = new System.Drawing.Size(158, 50);
+            this.lblDescription.TabIndex = 7;
+            this.lblDescription.Text = "Description";
+            this.lblDescription.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblName
+            // 
+            this.lblName.Font = new System.Drawing.Font("Comic Sans MS", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblName.ForeColor = System.Drawing.Color.White;
+            this.lblName.Location = new System.Drawing.Point(9, 23);
+            this.lblName.Name = "lblName";
+            this.lblName.Size = new System.Drawing.Size(158, 50);
+            this.lblName.TabIndex = 6;
+            this.lblName.Text = "Name *";
+            this.lblName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // dgwOutcomes
+            // 
+            this.dgwOutcomes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgwOutcomes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgwOutcomes.Location = new System.Drawing.Point(3, 317);
+            this.dgwOutcomes.Name = "dgwOutcomes";
+            this.dgwOutcomes.RowHeadersWidth = 51;
+            this.dgwOutcomes.RowTemplate.Height = 24;
+            this.dgwOutcomes.Size = new System.Drawing.Size(1356, 465);
+            this.dgwOutcomes.TabIndex = 1;
+            this.dgwOutcomes.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwOutcomes_CellDoubleClick);
+            // 
+            // OutcomeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -374,13 +374,13 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Font = new System.Drawing.Font("Comic Sans MS", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "IncomeForm";
+            this.Name = "OutcomeForm";
             this.Text = "Income";
-            this.Load += new System.EventHandler(this.IncomeForm_Load);
+            this.Load += new System.EventHandler(this.OutcomeForm_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panelInputs.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nudAmount)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgwIncomes)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgwOutcomes)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -390,7 +390,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Panel panelInputs;
         private System.Windows.Forms.Label lblName;
-        private System.Windows.Forms.DataGridView dgwIncomes;
+        private System.Windows.Forms.DataGridView dgwOutcomes;
         private System.Windows.Forms.Label lblDescription;
         private Custom.Controls.DevTextBox tbxName;
         private Custom.Controls.DevTextBox tbxDescription;
