@@ -24,6 +24,8 @@ namespace IOTSystem.Entities.Concrete
 
         public decimal Amount { get; set; }
 
+        public int BalanceId { get; set; }
+
         public bool IsValid()
         {
             return !string.IsNullOrWhiteSpace(Name) && Name.Length > 0

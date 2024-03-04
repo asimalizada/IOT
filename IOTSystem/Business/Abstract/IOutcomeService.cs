@@ -14,5 +14,7 @@ namespace IOTSystem.Business.Abstract
         Outcome Get(int id);
 
         List<Outcome> GetAll();
+
+        List<Outcome> GetAlternativeOutcomes();
     }
 }

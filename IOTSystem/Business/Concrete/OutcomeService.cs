@@ -43,6 +43,11 @@ namespace IOTSystem.Business.Concrete
             return _outcomeRepository.GetAll();
         }
 
+        public List<Outcome> GetAlternativeOutcomes()
+        {
+            return _outcomeRepository.GetAll(o => o.IsAlternative);
+        }
+
         public Outcome Update(Outcome outcome)
         {
             Validate(outcome);

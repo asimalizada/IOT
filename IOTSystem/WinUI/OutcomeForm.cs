@@ -16,24 +16,35 @@ namespace IOTSystem.WinUI
     {
         private readonly IOutcomeService _service;
         private readonly IOutcomeReasonService _reasonService;
+        private readonly IBalanceService _balanceService;
+
+        private List<Outcome> _outcomes;
+        private List<OutcomeReason> _reasons;
+        private List<Balance> _balances;
+        private List<Outcome> _alternatives;
 
         public OutcomeForm()
         {
             InitializeComponent();
             _service = InstanceFactory.GetInstance<IOutcomeService>(new BusinessModule());
             _reasonService = InstanceFactory.GetInstance<IOutcomeReasonService>(new BusinessModule());
+            _balanceService = InstanceFactory.GetInstance<IBalanceService>(new BusinessModule());
         }
 
-        private void OutcomeForm_Load(object sender, System.EventArgs e)
+        private void OutcomeForm_Load(object sender, EventArgs e)
         {
             DesignDataGridView(dgwOutcomes);
             LoadData();
             LoadReasons();
+            LoadBalances();
+            LoadAlternatives();
         }
 
         private void LoadData()
         {
-            dgwOutcomes.DataSource = _service.GetAll();
+            var data = _service.GetAll();
+            dgwOutcomes.DataSource = data;
+            _outcomes = data;
         }
 
         private void LoadReasons()
@@ -43,6 +54,33 @@ namespace IOTSystem.WinUI
             cmbReasons.DataSource = data;
             cmbReasons.ValueMember = "Id";
             cmbReasons.DisplayMember = "Name";
+
+            _reasons = data;
+        }
+
+        private void LoadBalances()
+        {
+            var data = _balanceService.GetAll();
+
+            cmbBalances.DataSource = data;
+            cmbBalances.ValueMember = "Id";
+            cmbBalances.DisplayMember = "Name";
+
+            _balances = data;
+
+            if (data == null || data.Count == 0)
+                DevMsgBox.Show("You have not added any balances yet. Please, add balance first to add outcome action.", "System", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
+        private void LoadAlternatives()
+        {
+            var data = _service.GetAlternativeOutcomes();
+
+            cmbAlternatives.DataSource = data;
+            cmbAlternatives.ValueMember = "Id";
+            cmbAlternatives.DisplayMember = "Name";
+
+            _alternatives = data;
         }
 
         public bool HandleException(Action action)
@@ -113,6 +151,11 @@ namespace IOTSystem.WinUI
             this.DesignDataGrid(dgwBase);
         }
 
+        private void HandleSafe(Action action)
+        {
+            try { action.Invoke(); } catch { }
+        }
+
         private void btnCancel_Click(object sender, EventArgs e)
         {
             btnCancel.Visible = false;
@@ -124,12 +167,11 @@ namespace IOTSystem.WinUI
             tbxName.Texts = string.Empty;
             tbxDescription.Texts = string.Empty;
             dtpDate.Value = DateTime.Now;
+            nudAmount.Value = 0;
 
-            try
-            {
-                cmbReasons.SelectedIndex = 0;
-            }
-            catch { }
+            HandleSafe(() => { cmbReasons.SelectedIndex = 0; });
+            HandleSafe(() => { cmbBalances.SelectedIndex = 0; });
+            HandleSafe(() => { cmbAlternatives.SelectedIndex = 0; });
         }
 
         private void dgwOutcomes_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -143,13 +185,17 @@ namespace IOTSystem.WinUI
             btnUpdate.Enabled = true;
             btnDelete.Enabled = true;
 
-            var cells = dgwOutcomes.CurrentRow.Cells;
+            var outcome = _outcomes.FirstOrDefault(o => o.Id == Convert.ToInt32(dgwOutcomes.CurrentRow.Cells[0].Value));
 
-            tbxName.Texts = cells[1].Value.ToString();
-            tbxDescription.Texts = cells[2].Value.ToString();
-            dtpDate.Value = Convert.ToDateTime(cells[4].Value);
-            cmbReasons.SelectedValue = Convert.ToInt32(cells[3].Value);
-            nudAmount.Value = Convert.ToDecimal(cells[4].Value);
+            tbxName.Texts = outcome.Name;
+            tbxDescription.Texts = outcome.Description;
+            dtpDate.Value = outcome.Date;
+            cmbReasons.SelectedValue = outcome.ReasonId;
+            nudAmount.Value = outcome.Amount;
+            cmbBalances.SelectedValue = outcome.BalanceId;
+            chkIsAlternative.Checked = outcome.IsAlternative;
+            if (!outcome.IsAlternative)
+                cmbAlternatives.SelectedValue = outcome.Alternative;
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -165,7 +211,10 @@ namespace IOTSystem.WinUI
                     Description = tbxDescription.Texts,
                     Date = dtpDate.Value,
                     ReasonId = Convert.ToInt32(cmbReasons.SelectedValue),
-                    Amount = nudAmount.Value
+                    Amount = nudAmount.Value,
+                    BalanceId = Convert.ToInt32(cmbBalances.SelectedValue),
+                    IsAlternative = chkIsAlternative.Checked,
+                    Alternative = chkIsAlternative.Checked ? Convert.ToInt32(cmbAlternatives.SelectedValue) : 0
                 });
             });
 
@@ -187,7 +236,10 @@ namespace IOTSystem.WinUI
                     Description = tbxDescription.Texts,
                     Date = dtpDate.Value,
                     ReasonId = Convert.ToInt32(cmbReasons.SelectedValue),
-                    Amount = nudAmount.Value
+                    Amount = nudAmount.Value,
+                    BalanceId = Convert.ToInt32(cmbBalances.SelectedValue),
+                    IsAlternative = chkIsAlternative.Checked,
+                    Alternative = chkIsAlternative.Checked ? Convert.ToInt32(cmbAlternatives.SelectedValue) : 0
                 });
             });
 
@@ -219,9 +271,37 @@ namespace IOTSystem.WinUI
 
         private void cmbReasons_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            var selectedItem = (cmbReasons.DataSource as List<IncomeReason>).FirstOrDefault(r => r.Id == (int)cmbReasons.SelectedValue);
-            if(selectedItem != null && selectedItem.Amount != null && selectedItem.Amount != 0)
-            nudAmount.Value = selectedItem.Amount ?? 0;
+            var selectedItem = _reasons.FirstOrDefault(r => r.Id == (int)cmbReasons.SelectedValue);
+            if (selectedItem != null && selectedItem.Amount != null && selectedItem.Amount != 0)
+                nudAmount.Value = selectedItem.Amount ?? 0;
+        }
+
+        private void chkIsAlternative_CheckedChanged(object sender, EventArgs e)
+        {
+            HandleSafe(() => { cmbAlternatives.SelectedIndex = 0; });
+            cmbAlternatives.Enabled = !chkIsAlternative.Checked;
+        }
+
+        private void cmbBalances_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            var balanceId = (int)cmbBalances.SelectedValue;
+            var balance = _balances.FirstOrDefault(b => b.Id == balanceId);
+
+            if(balance.Amount < nudAmount.Value)
+                cmbBalances.BorderColor = Color.Red;
+            else
+                cmbBalances.BorderColor = Color.FromArgb(32, 30, 45);
+        }
+
+        private void nudAmount_ValueChanged(object sender, EventArgs e)
+        {
+            var balanceId = (int)cmbBalances.SelectedValue;
+            var balance = _balances.FirstOrDefault(b => b.Id == balanceId);
+
+            if (balance.Amount < nudAmount.Value)
+                cmbBalances.BorderColor = Color.Red;
+            else
+                cmbBalances.BorderColor = Color.FromArgb(32, 30, 45);
         }
     }
 }

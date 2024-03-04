@@ -5,7 +5,9 @@ using IOTSystem.Entities.Concrete;
 using IOTSystem.Helpers;
 using IOTSystem.IoC;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace IOTSystem.WinUI
@@ -13,6 +15,8 @@ namespace IOTSystem.WinUI
     public partial class BalanceForm : Form
     {
         private readonly IBalanceService _service;
+
+        private List<Balance> _balances;
 
         public BalanceForm()
         {
@@ -28,7 +32,9 @@ namespace IOTSystem.WinUI
 
         private void LoadData()
         {
-            dgwBalances.DataSource = _service.GetAll();
+            var data = _service.GetAll();
+            dgwBalances.DataSource = data;
+            _balances = data;
         }
 
         public bool HandleException(Action action)
@@ -176,11 +182,11 @@ namespace IOTSystem.WinUI
             btnUpdate.Enabled = true;
             btnDelete.Enabled = true;
 
-            var cells = dgwBalances.CurrentRow.Cells;
+            var balance = _balances.FirstOrDefault(b => b.Id == Convert.ToInt32(dgwBalances.CurrentRow.Cells[0].Value));
 
-            tbxName.Texts = cells[1].Value.ToString();
-            tbxDescription.Texts = cells[2].Value.ToString();
-            nudAmount.Value = Convert.ToDecimal(cells[3].Value);
+            tbxName.Texts = balance.Name;
+            tbxDescription.Texts = balance.Description;
+            nudAmount.Value = balance.Amount;
         }
     }
 }

@@ -37,15 +37,17 @@
             this.btnDelete = new FontAwesome.Sharp.IconButton();
             this.btnUpdate = new FontAwesome.Sharp.IconButton();
             this.btnAdd = new FontAwesome.Sharp.IconButton();
+            this.cmbReasons = new IOTSystem.WinUI.Custom.Controls.DevComboBox();
             this.lblReason = new System.Windows.Forms.Label();
+            this.dtpDate = new IOTSystem.WinUI.Custom.Controls.DevDateTimePicker();
             this.lbldate = new System.Windows.Forms.Label();
+            this.tbxDescription = new IOTSystem.WinUI.Custom.Controls.DevTextBox();
+            this.tbxName = new IOTSystem.WinUI.Custom.Controls.DevTextBox();
             this.lblDescription = new System.Windows.Forms.Label();
             this.lblName = new System.Windows.Forms.Label();
             this.dgwIncomes = new System.Windows.Forms.DataGridView();
-            this.cmbReasons = new IOTSystem.WinUI.Custom.Controls.DevComboBox();
-            this.dtpDate = new IOTSystem.WinUI.Custom.Controls.DevDateTimePicker();
-            this.tbxDescription = new IOTSystem.WinUI.Custom.Controls.DevTextBox();
-            this.tbxName = new IOTSystem.WinUI.Custom.Controls.DevTextBox();
+            this.lblBalance = new System.Windows.Forms.Label();
+            this.cmbBalances = new IOTSystem.WinUI.Custom.Controls.DevComboBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.panelInputs.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudAmount)).BeginInit();
@@ -62,13 +64,15 @@
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1362, 785);
             this.tableLayoutPanel1.TabIndex = 6;
             // 
             // panelInputs
             // 
+            this.panelInputs.Controls.Add(this.cmbBalances);
+            this.panelInputs.Controls.Add(this.lblBalance);
             this.panelInputs.Controls.Add(this.nudAmount);
             this.panelInputs.Controls.Add(this.lblAmount);
             this.panelInputs.Controls.Add(this.btnReasons);
@@ -111,7 +115,7 @@
             // 
             this.lblAmount.Font = new System.Drawing.Font("Comic Sans MS", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAmount.ForeColor = System.Drawing.Color.White;
-            this.lblAmount.Location = new System.Drawing.Point(486, 81);
+            this.lblAmount.Location = new System.Drawing.Point(486, 82);
             this.lblAmount.Name = "lblAmount";
             this.lblAmount.Size = new System.Drawing.Size(158, 50);
             this.lblAmount.TabIndex = 19;
@@ -130,7 +134,7 @@
             this.btnReasons.IconColor = System.Drawing.Color.Gainsboro;
             this.btnReasons.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnReasons.IconSize = 35;
-            this.btnReasons.Location = new System.Drawing.Point(871, 148);
+            this.btnReasons.Location = new System.Drawing.Point(872, 151);
             this.btnReasons.Name = "btnReasons";
             this.btnReasons.Size = new System.Drawing.Size(40, 36);
             this.btnReasons.TabIndex = 18;
@@ -150,7 +154,7 @@
             this.btnCancel.IconColor = System.Drawing.Color.Gainsboro;
             this.btnCancel.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnCancel.IconSize = 40;
-            this.btnCancel.Location = new System.Drawing.Point(725, 196);
+            this.btnCancel.Location = new System.Drawing.Point(1039, 218);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(140, 50);
             this.btnCancel.TabIndex = 17;
@@ -173,7 +177,7 @@
             this.btnDelete.IconColor = System.Drawing.Color.Gainsboro;
             this.btnDelete.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnDelete.IconSize = 40;
-            this.btnDelete.Location = new System.Drawing.Point(1039, 149);
+            this.btnDelete.Location = new System.Drawing.Point(1039, 151);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(140, 50);
             this.btnDelete.TabIndex = 16;
@@ -195,7 +199,7 @@
             this.btnUpdate.IconColor = System.Drawing.Color.Gainsboro;
             this.btnUpdate.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnUpdate.IconSize = 40;
-            this.btnUpdate.Location = new System.Drawing.Point(1039, 83);
+            this.btnUpdate.Location = new System.Drawing.Point(1039, 84);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(140, 50);
             this.btnUpdate.TabIndex = 15;
@@ -225,16 +229,52 @@
             this.btnAdd.UseVisualStyleBackColor = false;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
+            // cmbReasons
+            // 
+            this.cmbReasons.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.cmbReasons.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.cmbReasons.BorderSize = 1;
+            this.cmbReasons.DisplayMember = "Id";
+            this.cmbReasons.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown;
+            this.cmbReasons.Font = new System.Drawing.Font("Comic Sans MS", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbReasons.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(7)))), ((int)(((byte)(17)))));
+            this.cmbReasons.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.cmbReasons.ListBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.cmbReasons.ListTextColor = System.Drawing.Color.Gainsboro;
+            this.cmbReasons.Location = new System.Drawing.Point(650, 150);
+            this.cmbReasons.MinimumSize = new System.Drawing.Size(200, 30);
+            this.cmbReasons.Name = "cmbReasons";
+            this.cmbReasons.Padding = new System.Windows.Forms.Padding(1);
+            this.cmbReasons.Size = new System.Drawing.Size(215, 38);
+            this.cmbReasons.TabIndex = 13;
+            this.cmbReasons.Texts = "";
+            this.cmbReasons.OnSelectedIndexChanged += new System.EventHandler(this.cmbReasons_OnSelectedIndexChanged);
+            // 
             // lblReason
             // 
             this.lblReason.Font = new System.Drawing.Font("Comic Sans MS", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblReason.ForeColor = System.Drawing.Color.White;
-            this.lblReason.Location = new System.Drawing.Point(486, 139);
+            this.lblReason.Location = new System.Drawing.Point(486, 141);
             this.lblReason.Name = "lblReason";
             this.lblReason.Size = new System.Drawing.Size(158, 50);
             this.lblReason.TabIndex = 12;
             this.lblReason.Text = "Reason *";
             this.lblReason.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // dtpDate
+            // 
+            this.dtpDate.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.dtpDate.BorderSize = 0;
+            this.dtpDate.CustomFormat = "dd.MM.yyyy";
+            this.dtpDate.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpDate.Location = new System.Drawing.Point(650, 32);
+            this.dtpDate.MinimumSize = new System.Drawing.Size(4, 35);
+            this.dtpDate.Name = "dtpDate";
+            this.dtpDate.Size = new System.Drawing.Size(215, 35);
+            this.dtpDate.SkinColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.dtpDate.TabIndex = 11;
+            this.dtpDate.TextColor = System.Drawing.Color.Gainsboro;
             // 
             // lbldate
             // 
@@ -246,6 +286,54 @@
             this.lbldate.TabIndex = 10;
             this.lbldate.Text = "Date";
             this.lbldate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tbxDescription
+            // 
+            this.tbxDescription.BackColor = System.Drawing.Color.Gainsboro;
+            this.tbxDescription.BorderColor = System.Drawing.Color.Gainsboro;
+            this.tbxDescription.BorderFocusColor = System.Drawing.Color.Gainsboro;
+            this.tbxDescription.BorderRadius = 0;
+            this.tbxDescription.BorderSize = 4;
+            this.tbxDescription.Font = new System.Drawing.Font("Comic Sans MS", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxDescription.ForeColor = System.Drawing.Color.DimGray;
+            this.tbxDescription.Location = new System.Drawing.Point(192, 95);
+            this.tbxDescription.Margin = new System.Windows.Forms.Padding(4);
+            this.tbxDescription.Multiline = true;
+            this.tbxDescription.Name = "tbxDescription";
+            this.tbxDescription.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
+            this.tbxDescription.PasswordChar = false;
+            this.tbxDescription.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.tbxDescription.PlaceholderText = "";
+            this.tbxDescription.Readonly = false;
+            this.tbxDescription.Size = new System.Drawing.Size(257, 155);
+            this.tbxDescription.TabIndex = 9;
+            this.tbxDescription.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.tbxDescription.Texts = "";
+            this.tbxDescription.UnderlinedStyle = false;
+            // 
+            // tbxName
+            // 
+            this.tbxName.BackColor = System.Drawing.Color.Gainsboro;
+            this.tbxName.BorderColor = System.Drawing.Color.Gainsboro;
+            this.tbxName.BorderFocusColor = System.Drawing.Color.Gainsboro;
+            this.tbxName.BorderRadius = 0;
+            this.tbxName.BorderSize = 4;
+            this.tbxName.Font = new System.Drawing.Font("Comic Sans MS", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxName.ForeColor = System.Drawing.Color.DimGray;
+            this.tbxName.Location = new System.Drawing.Point(192, 30);
+            this.tbxName.Margin = new System.Windows.Forms.Padding(4);
+            this.tbxName.Multiline = false;
+            this.tbxName.Name = "tbxName";
+            this.tbxName.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
+            this.tbxName.PasswordChar = false;
+            this.tbxName.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.tbxName.PlaceholderText = "";
+            this.tbxName.Readonly = false;
+            this.tbxName.Size = new System.Drawing.Size(257, 45);
+            this.tbxName.TabIndex = 8;
+            this.tbxName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tbxName.Texts = "";
+            this.tbxName.UnderlinedStyle = false;
             // 
             // lblDescription
             // 
@@ -281,89 +369,36 @@
             this.dgwIncomes.TabIndex = 1;
             this.dgwIncomes.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwIncomes_CellDoubleClick);
             // 
-            // cmbReasons
+            // lblBalance
             // 
-            this.cmbReasons.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.cmbReasons.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.cmbReasons.BorderSize = 1;
-            this.cmbReasons.DisplayMember = "Id";
-            this.cmbReasons.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown;
-            this.cmbReasons.Font = new System.Drawing.Font("Comic Sans MS", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbReasons.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(7)))), ((int)(((byte)(17)))));
-            this.cmbReasons.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.cmbReasons.ListBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.cmbReasons.ListTextColor = System.Drawing.Color.Gainsboro;
-            this.cmbReasons.Location = new System.Drawing.Point(650, 148);
-            this.cmbReasons.MinimumSize = new System.Drawing.Size(200, 30);
-            this.cmbReasons.Name = "cmbReasons";
-            this.cmbReasons.Padding = new System.Windows.Forms.Padding(1);
-            this.cmbReasons.Size = new System.Drawing.Size(215, 38);
-            this.cmbReasons.TabIndex = 13;
-            this.cmbReasons.Texts = "";
-            this.cmbReasons.OnSelectedIndexChanged += new System.EventHandler(this.cmbReasons_OnSelectedIndexChanged);
+            this.lblBalance.Font = new System.Drawing.Font("Comic Sans MS", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBalance.ForeColor = System.Drawing.Color.White;
+            this.lblBalance.Location = new System.Drawing.Point(486, 200);
+            this.lblBalance.Name = "lblBalance";
+            this.lblBalance.Size = new System.Drawing.Size(158, 50);
+            this.lblBalance.TabIndex = 21;
+            this.lblBalance.Text = "Balance *";
+            this.lblBalance.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // dtpDate
+            // cmbBalances
             // 
-            this.dtpDate.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.dtpDate.BorderSize = 0;
-            this.dtpDate.CustomFormat = "dd.MM.yyyy";
-            this.dtpDate.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpDate.Location = new System.Drawing.Point(650, 32);
-            this.dtpDate.MinimumSize = new System.Drawing.Size(4, 35);
-            this.dtpDate.Name = "dtpDate";
-            this.dtpDate.Size = new System.Drawing.Size(215, 35);
-            this.dtpDate.SkinColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.dtpDate.TabIndex = 11;
-            this.dtpDate.TextColor = System.Drawing.Color.Gainsboro;
-            // 
-            // tbxDescription
-            // 
-            this.tbxDescription.BackColor = System.Drawing.Color.Gainsboro;
-            this.tbxDescription.BorderColor = System.Drawing.Color.Gainsboro;
-            this.tbxDescription.BorderFocusColor = System.Drawing.Color.Gainsboro;
-            this.tbxDescription.BorderRadius = 0;
-            this.tbxDescription.BorderSize = 4;
-            this.tbxDescription.Font = new System.Drawing.Font("Comic Sans MS", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxDescription.ForeColor = System.Drawing.Color.DimGray;
-            this.tbxDescription.Location = new System.Drawing.Point(192, 95);
-            this.tbxDescription.Margin = new System.Windows.Forms.Padding(4);
-            this.tbxDescription.Multiline = true;
-            this.tbxDescription.Name = "tbxDescription";
-            this.tbxDescription.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
-            this.tbxDescription.PasswordChar = false;
-            this.tbxDescription.PlaceholderColor = System.Drawing.Color.DarkGray;
-            this.tbxDescription.PlaceholderText = "";
-            this.tbxDescription.Readonly = false;
-            this.tbxDescription.Size = new System.Drawing.Size(257, 138);
-            this.tbxDescription.TabIndex = 9;
-            this.tbxDescription.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.tbxDescription.Texts = "";
-            this.tbxDescription.UnderlinedStyle = false;
-            // 
-            // tbxName
-            // 
-            this.tbxName.BackColor = System.Drawing.Color.Gainsboro;
-            this.tbxName.BorderColor = System.Drawing.Color.Gainsboro;
-            this.tbxName.BorderFocusColor = System.Drawing.Color.Gainsboro;
-            this.tbxName.BorderRadius = 0;
-            this.tbxName.BorderSize = 4;
-            this.tbxName.Font = new System.Drawing.Font("Comic Sans MS", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxName.ForeColor = System.Drawing.Color.DimGray;
-            this.tbxName.Location = new System.Drawing.Point(192, 30);
-            this.tbxName.Margin = new System.Windows.Forms.Padding(4);
-            this.tbxName.Multiline = false;
-            this.tbxName.Name = "tbxName";
-            this.tbxName.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
-            this.tbxName.PasswordChar = false;
-            this.tbxName.PlaceholderColor = System.Drawing.Color.DarkGray;
-            this.tbxName.PlaceholderText = "";
-            this.tbxName.Readonly = false;
-            this.tbxName.Size = new System.Drawing.Size(257, 45);
-            this.tbxName.TabIndex = 8;
-            this.tbxName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.tbxName.Texts = "";
-            this.tbxName.UnderlinedStyle = false;
+            this.cmbBalances.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.cmbBalances.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.cmbBalances.BorderSize = 1;
+            this.cmbBalances.DisplayMember = "Id";
+            this.cmbBalances.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown;
+            this.cmbBalances.Font = new System.Drawing.Font("Comic Sans MS", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbBalances.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(7)))), ((int)(((byte)(17)))));
+            this.cmbBalances.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.cmbBalances.ListBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.cmbBalances.ListTextColor = System.Drawing.Color.Gainsboro;
+            this.cmbBalances.Location = new System.Drawing.Point(650, 212);
+            this.cmbBalances.MinimumSize = new System.Drawing.Size(200, 30);
+            this.cmbBalances.Name = "cmbBalances";
+            this.cmbBalances.Padding = new System.Windows.Forms.Padding(1);
+            this.cmbBalances.Size = new System.Drawing.Size(215, 38);
+            this.cmbBalances.TabIndex = 22;
+            this.cmbBalances.Texts = "";
             // 
             // IncomeForm
             // 
@@ -405,5 +440,7 @@
         private FontAwesome.Sharp.IconButton btnReasons;
         private System.Windows.Forms.Label lblAmount;
         private System.Windows.Forms.NumericUpDown nudAmount;
+        private Custom.Controls.DevComboBox cmbBalances;
+        private System.Windows.Forms.Label lblBalance;
     }
 }

@@ -16,24 +16,33 @@ namespace IOTSystem.WinUI
     {
         private readonly IIncomeService _service;
         private readonly IIncomeReasonService _reasonService;
+        private readonly IBalanceService _balanceService;
+
+        private List<Income> _incomes;
+        private List<IncomeReason> _reasons;
+        private List<Balance> _balances;
 
         public IncomeForm()
         {
             InitializeComponent();
             _service = InstanceFactory.GetInstance<IIncomeService>(new BusinessModule());
             _reasonService = InstanceFactory.GetInstance<IIncomeReasonService>(new BusinessModule());
+            _balanceService = InstanceFactory.GetInstance<IBalanceService>(new BusinessModule());
         }
 
-        private void IncomeForm_Load(object sender, System.EventArgs e)
+        private void IncomeForm_Load(object sender, EventArgs e)
         {
             DesignDataGridView(dgwIncomes);
             LoadData();
             LoadReasons();
+            LoadBalances();
         }
 
         private void LoadData()
         {
-            dgwIncomes.DataSource = _service.GetAll();
+            var data = _service.GetAll();
+            dgwIncomes.DataSource = data;
+            _incomes = data;
         }
 
         private void LoadReasons()
@@ -43,6 +52,22 @@ namespace IOTSystem.WinUI
             cmbReasons.DataSource = data;
             cmbReasons.ValueMember = "Id";
             cmbReasons.DisplayMember = "Name";
+
+            _reasons = data;
+        }
+
+        private void LoadBalances()
+        {
+            var data = _balanceService.GetAll();
+
+            cmbBalances.DataSource = data;
+            cmbBalances.ValueMember = "Id";
+            cmbBalances.DisplayMember = "Name";
+
+            _balances = data;
+
+            if (data == null || data.Count == 0)
+                DevMsgBox.Show("You have not added any balances yet. Please, add balance first to add outcome action.", "System", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         public bool HandleException(Action action)
@@ -59,6 +84,11 @@ namespace IOTSystem.WinUI
             }
 
             return result;
+        }
+
+        private void HandleSafe(Action action)
+        {
+            try { action.Invoke(); } catch { }
         }
 
         private void DesignDataGrid(DataGridView dataGridView)
@@ -124,12 +154,10 @@ namespace IOTSystem.WinUI
             tbxName.Texts = string.Empty;
             tbxDescription.Texts = string.Empty;
             dtpDate.Value = DateTime.Now;
+            nudAmount.Value = 0;
 
-            try
-            {
-                cmbReasons.SelectedIndex = 0;
-            }
-            catch { }
+            HandleSafe(() => cmbReasons.SelectedIndex = 0);
+            HandleSafe(() => cmbBalances.SelectedIndex = 0);
         }
 
         private void dgwIncomes_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -143,13 +171,14 @@ namespace IOTSystem.WinUI
             btnUpdate.Enabled = true;
             btnDelete.Enabled = true;
 
-            var cells = dgwIncomes.CurrentRow.Cells;
+            var income = _incomes.FirstOrDefault(i => i.Id == Convert.ToInt32(dgwIncomes.CurrentRow.Cells[0].Value));
 
-            tbxName.Texts = cells[1].Value.ToString();
-            tbxDescription.Texts = cells[2].Value.ToString();
-            dtpDate.Value = Convert.ToDateTime(cells[4].Value);
-            cmbReasons.SelectedValue = Convert.ToInt32(cells[3].Value);
-            nudAmount.Value = Convert.ToDecimal(cells[5].Value);
+            tbxName.Texts = income.Name;
+            tbxDescription.Texts = income.Description;
+            dtpDate.Value = income.Date;
+            cmbReasons.SelectedValue = income.ReasonId;
+            nudAmount.Value = income.Amount;
+            cmbBalances.SelectedValue = income.BalanceId;
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -165,7 +194,8 @@ namespace IOTSystem.WinUI
                     Description = tbxDescription.Texts,
                     Date = dtpDate.Value,
                     ReasonId = Convert.ToInt32(cmbReasons.SelectedValue),
-                    Amount = nudAmount.Value
+                    Amount = nudAmount.Value,
+                    BalanceId = Convert.ToInt32(cmbBalances.SelectedValue)
                 });
             });
 
@@ -187,7 +217,8 @@ namespace IOTSystem.WinUI
                     Description = tbxDescription.Texts,
                     Date = dtpDate.Value,
                     ReasonId = Convert.ToInt32(cmbReasons.SelectedValue),
-                    Amount = nudAmount.Value
+                    Amount = nudAmount.Value,
+                    BalanceId = Convert.ToInt32(cmbBalances.SelectedValue)
                 });
             });
 
@@ -219,9 +250,9 @@ namespace IOTSystem.WinUI
 
         private void cmbReasons_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            var selectedItem = (cmbReasons.DataSource as List<IncomeReason>).FirstOrDefault(r => r.Id == (int)cmbReasons.SelectedValue);
-            if(selectedItem != null && selectedItem.Amount != null && selectedItem.Amount != 0)
-            nudAmount.Value = selectedItem.Amount ?? 0;
+            var selectedItem = _reasons.FirstOrDefault(r => r.Id == (int)cmbReasons.SelectedValue);
+            if (selectedItem != null && selectedItem.Amount != null && selectedItem.Amount != 0)
+                nudAmount.Value = selectedItem.Amount ?? 0;
         }
     }
 }
