@@ -2,6 +2,7 @@
 using IOTSystem.Business;
 using IOTSystem.Business.Abstract;
 using IOTSystem.Entities.Concrete;
+using IOTSystem.Entities.Dto;
 using IOTSystem.Helpers;
 using IOTSystem.IoC;
 using System;
@@ -18,9 +19,9 @@ namespace IOTSystem.WinUI
         private readonly IIncomeReasonService _reasonService;
         private readonly IBalanceService _balanceService;
 
-        private List<Income> _incomes;
+        private List<IncomeDto> _incomes;
         private List<IncomeReason> _reasons;
-        private List<Balance> _balances;
+        private List<BalanceDto> _balances;
 
         public IncomeForm()
         {
@@ -36,6 +37,14 @@ namespace IOTSystem.WinUI
             LoadData();
             LoadReasons();
             LoadBalances();
+
+            FormHelper.HideColumnsOfDgw(dgwIncomes, "ReasonId", "BalanceId");
+            FormHelper.SortColumnsOfDgw(dgwIncomes, "Id", "Name", "Description", "BalanceName", "ReasonName", "Date", "Amount");
+            FormHelper.RenameColumnsOfDgw(dgwIncomes, new Dictionary<string, string>
+            {
+                { "ReasonName", "Reason" },
+                { "BalanceName", "Balance" }
+            });
         }
 
         private void LoadData()
@@ -151,10 +160,7 @@ namespace IOTSystem.WinUI
             btnDelete.Enabled = false;
             dgwIncomes.Enabled = true;
 
-            tbxName.Texts = string.Empty;
-            tbxDescription.Texts = string.Empty;
-            dtpDate.Value = DateTime.Now;
-            nudAmount.Value = 0;
+            ResetForm();
 
             HandleSafe(() => cmbReasons.SelectedIndex = 0);
             HandleSafe(() => cmbBalances.SelectedIndex = 0);
@@ -188,7 +194,7 @@ namespace IOTSystem.WinUI
 
             var result = HandleException(() =>
             {
-                _service.Add(new Income
+                _service.Add(new IncomeDto
                 {
                     Name = tbxName.Texts,
                     Description = tbxDescription.Texts,
@@ -200,7 +206,10 @@ namespace IOTSystem.WinUI
             });
 
             if (result)
+            {
                 LoadData();
+                ResetForm();
+            }
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -210,7 +219,7 @@ namespace IOTSystem.WinUI
 
             var result = HandleException(() =>
             {
-                _service.Update(new Income
+                _service.Update(new IncomeDto
                 {
                     Id = Convert.ToInt32(dgwIncomes.CurrentRow.Cells[0].Value),
                     Name = tbxName.Texts,
@@ -223,7 +232,10 @@ namespace IOTSystem.WinUI
             });
 
             if (result)
+            {
                 LoadData();
+                ResetForm();
+            }
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -237,7 +249,10 @@ namespace IOTSystem.WinUI
             });
 
             if (result)
+            {
                 LoadData();
+                ResetForm();
+            }
         }
 
         private void btnReasons_Click(object sender, EventArgs e)
@@ -253,6 +268,16 @@ namespace IOTSystem.WinUI
             var selectedItem = _reasons.FirstOrDefault(r => r.Id == (int)cmbReasons.SelectedValue);
             if (selectedItem != null && selectedItem.Amount != null && selectedItem.Amount != 0)
                 nudAmount.Value = selectedItem.Amount ?? 0;
+        }
+        
+        private void ResetForm()
+        {
+            tbxName.Texts = null;
+            tbxDescription.Texts = null;
+            dtpDate.Value = DateTime.Now;
+            nudAmount.Value = 0;
+            cmbReasons.SelectedIndex = 0;
+            cmbBalances.SelectedIndex = 0;
         }
     }
 }

@@ -1,18 +1,18 @@
-﻿using IOTSystem.Entities.Concrete;
+﻿using IOTSystem.Entities.Dto;
 using System.Collections.Generic;
 
 namespace IOTSystem.Business.Abstract
 {
     internal interface IIncomeService
     {
-        Income Add(Income income);
+        IncomeDto Add(IncomeDto income);
 
-        Income Update(Income income);
+        IncomeDto Update(IncomeDto income);
 
         void Delete(int id);
 
-        Income Get(int id);
+        IncomeDto Get(int id);
 
-        List<Income> GetAll();
+        List<IncomeDto> GetAll();
     }
 }

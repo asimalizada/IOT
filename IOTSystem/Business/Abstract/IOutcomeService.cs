@@ -1,20 +1,20 @@
-﻿using IOTSystem.Entities.Concrete;
+﻿using IOTSystem.Entities.Dto;
 using System.Collections.Generic;
 
 namespace IOTSystem.Business.Abstract
 {
     internal interface IOutcomeService
     {
-        Outcome Add(Outcome outcome);
+        OutcomeDto Add(OutcomeDto outcome);
 
-        Outcome Update(Outcome outcome);
+        OutcomeDto Update(OutcomeDto outcome);
 
         void Delete(int id);
 
-        Outcome Get(int id);
+        OutcomeDto Get(int id);
 
-        List<Outcome> GetAll();
+        List<OutcomeDto> GetAll();
 
-        List<Outcome> GetAlternativeOutcomes();
+        List<OutcomeDto> GetAlternativeOutcomes();
     }
 }

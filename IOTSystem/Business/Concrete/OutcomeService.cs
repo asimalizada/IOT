@@ -2,6 +2,7 @@
 using IOTSystem.DataAccess;
 using IOTSystem.DataAccess.Abstract;
 using IOTSystem.Entities.Concrete;
+using IOTSystem.Entities.Dto;
 using IOTSystem.Helpers;
 using IOTSystem.IoC;
 using System;
@@ -10,57 +11,84 @@ using System.Linq;
 
 namespace IOTSystem.Business.Concrete
 {
-    internal class OutcomeService : IOutcomeService
+    internal class OutcomeService : BaseService, IOutcomeService
     {
         internal readonly IOutcomeRepository _outcomeRepository;
+        internal readonly IBalanceRepository _balanceRepository;
 
         public OutcomeService()
         {
             _outcomeRepository = InstanceFactory.GetInstance<IOutcomeRepository>(new DataAccessModule());
+            _balanceRepository = InstanceFactory.GetInstance<IBalanceRepository>(new DataAccessModule());
         }
 
-        public Outcome Add(Outcome outcome)
+        public OutcomeDto Add(OutcomeDto outcome)
         {
-            Validate(outcome);
+            Validate(outcome, true);
 
-            var data = _outcomeRepository.Add(outcome);
+            var data = _outcomeRepository.Add(Map<OutcomeDto, Outcome>(outcome));
 
-            return data;
+            var balance = _balanceRepository.Get(b => b.Id == outcome.BalanceId);
+
+            balance.Amount -= outcome.Amount;
+
+            _balanceRepository.Update(balance);
+
+            return Map<Outcome, OutcomeDto>(data);
         }
 
         public void Delete(int id)
         {
+            var outcome = _outcomeRepository.Get(o => o.Id == id);
+
             _outcomeRepository.Delete(new Outcome { Id = id });
+
+            var balance = _balanceRepository.Get(b => b.Id == outcome.BalanceId);
+
+            balance.Amount += outcome.Amount;
+
+            _balanceRepository.Update(balance);
         }
 
-        public Outcome Get(int id)
+        public OutcomeDto Get(int id)
         {
-            return _outcomeRepository.Get(i => i.Id == id);
+            return Map<Outcome, OutcomeDto>(_outcomeRepository.Get(i => i.Id == id));
         }
 
-        public List<Outcome> GetAll()
+        public List<OutcomeDto> GetAll()
         {
-            return _outcomeRepository.GetAll();
+            return _outcomeRepository.GetAllOutcomes();
         }
 
-        public List<Outcome> GetAlternativeOutcomes()
+        public List<OutcomeDto> GetAlternativeOutcomes()
         {
-            return _outcomeRepository.GetAll(o => o.IsAlternative);
+            return _outcomeRepository.GetAllOutcomes(o => o.IsAlternative);
         }
 
-        public Outcome Update(Outcome outcome)
+        public OutcomeDto Update(OutcomeDto outcome)
         {
-            Validate(outcome);
+            Validate(outcome, false);
 
-            var data = _outcomeRepository.Update(outcome);
+            var previousData = _outcomeRepository.Get(o => o.Id == outcome.Id);
 
-            return data;
+            var data = _outcomeRepository.Update(Map<OutcomeDto, Outcome>(outcome));
+
+            var balance = _balanceRepository.Get(b => b.Id == outcome.BalanceId);
+
+            balance.Amount -= (outcome.Amount - previousData.Amount);
+
+            _balanceRepository.Update(balance);
+
+            return Map<Outcome, OutcomeDto>(data);
         }
 
-        private void Validate(Outcome outcome)
+        private void Validate(OutcomeDto outcome, bool isAdd)
         {
             if (!outcome.IsValid())
                 throw new Exception(Messages.InvalidData);
+
+            if (!isAdd)
+                return;
 
             var alikes = _outcomeRepository.GetAll(o => o.Name == outcome.Name);
 

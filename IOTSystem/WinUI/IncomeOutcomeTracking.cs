@@ -23,10 +23,10 @@ namespace IOTSystem.WinUI
         private void OpenChildForm(Form childForm, IconButton sender)
         {
             if (_currentButton != null)
-                _currentButton.BackColor = Color.FromArgb(23, 21, 32);
+                _currentButton.BackColor = Color.FromArgb(32, 30, 45);
 
             _currentButton = sender;
-            _currentButton.BackColor = Color.FromArgb(32, 30, 45);
+            _currentButton.BackColor = Color.FromArgb(23, 21, 32);
 
             _activeForm?.Close();
             _activeForm = childForm;

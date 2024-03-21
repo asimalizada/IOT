@@ -1,12 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace IOTSystem.Entities.Concrete
+﻿namespace IOTSystem.Entities.Dto
 {
-    public class Balance : IEntity
+    public class BalanceDto
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
         public string Name { get; set; }

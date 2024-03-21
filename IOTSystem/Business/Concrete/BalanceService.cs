@@ -1,8 +1,8 @@
 ﻿using IOTSystem.Business.Abstract;
 using IOTSystem.DataAccess;
 using IOTSystem.DataAccess.Abstract;
-using IOTSystem.DataAccess.Concrete;
 using IOTSystem.Entities.Concrete;
+using IOTSystem.Entities.Dto;
 using IOTSystem.Helpers;
 using IOTSystem.IoC;
 using System;
@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace IOTSystem.Business.Concrete
 {
-    internal class BalanceService : IBalanceService
+    internal class BalanceService : BaseService, IBalanceService
     {
         private readonly IBalanceRepository _balanceRepository;
 
@@ -20,13 +20,13 @@ namespace IOTSystem.Business.Concrete
             _balanceRepository = InstanceFactory.GetInstance<IBalanceRepository>(new DataAccessModule());
         }
 
-        public Balance Add(Balance balance)
+        public BalanceDto Add(BalanceDto balance)
         {
-            Validate(balance);
+            Validate(balance, true);
 
-            var data = _balanceRepository.Add(balance);
+            var data = _balanceRepository.Add(Map<BalanceDto, Balance>(balance));
 
-            return data;
+            return Map<Balance, BalanceDto>(data);
         }
 
         public void Delete(int id)
@@ -34,29 +34,32 @@ namespace IOTSystem.Business.Concrete
             _balanceRepository.Delete(new Balance { Id = id });
         }
 
-        public Balance Get(int id)
+        public BalanceDto Get(int id)
         {
-            return _balanceRepository.Get(b => b.Id == id);
+            return Map<Balance, BalanceDto>(_balanceRepository.Get(b => b.Id == id));
         }
 
-        public List<Balance> GetAll()
+        public List<BalanceDto> GetAll()
         {
-            return _balanceRepository.GetAll();
+            return Map<Balance, BalanceDto>(_balanceRepository.GetAll());
         }
 
-        public Balance Update(Balance balance)
+        public BalanceDto Update(BalanceDto balance)
         {
-            Validate(balance);
+            Validate(balance, false);
 
-            var data = _balanceRepository.Update(balance);
+            var data = _balanceRepository.Update(Map<BalanceDto, Balance>(balance));
 
-            return data;
+            return Map<Balance, BalanceDto>(data);
         }
-        
-        private void Validate(Balance balance)
+
+        private void Validate(BalanceDto balance, bool isAdd)
         {
             if (!balance.IsValid())
                 throw new Exception(Messages.InvalidData);
+
+            if (!isAdd)
+                return;
 
             var alikes = _balanceRepository.GetAll(i => i.Name == balance.Name);
 

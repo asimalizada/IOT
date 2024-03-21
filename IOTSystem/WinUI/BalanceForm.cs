@@ -1,7 +1,7 @@
 ﻿using Core.WinFormUI.Design.MessageBox;
 using IOTSystem.Business;
 using IOTSystem.Business.Abstract;
-using IOTSystem.Entities.Concrete;
+using IOTSystem.Entities.Dto;
 using IOTSystem.Helpers;
 using IOTSystem.IoC;
 using System;
@@ -16,7 +16,7 @@ namespace IOTSystem.WinUI
     {
         private readonly IBalanceService _service;
 
-        private List<Balance> _balances;
+        private List<BalanceDto> _balances;
 
         public BalanceForm()
         {
@@ -112,7 +112,7 @@ namespace IOTSystem.WinUI
 
             var result = HandleException(() =>
             {
-                _service.Add(new Balance
+                _service.Add(new BalanceDto
                 {
                     Name = tbxName.Texts,
                     Description = tbxDescription.Texts,
@@ -121,7 +121,10 @@ namespace IOTSystem.WinUI
             });
 
             if (result)
+            {
                 LoadData();
+                ResetForm();
+            }
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -131,7 +134,7 @@ namespace IOTSystem.WinUI
 
             var result = HandleException(() =>
             {
-                _service.Update(new Balance
+                _service.Update(new BalanceDto
                 {
                     Id = Convert.ToInt32(dgwBalances.CurrentRow.Cells[0].Value),
                     Name = tbxName.Texts,
@@ -140,8 +143,11 @@ namespace IOTSystem.WinUI
                 });
             });
 
-            if (result) 
+            if (result)
+            {
                 LoadData();
+                ResetForm();
+            }
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -155,7 +161,10 @@ namespace IOTSystem.WinUI
             });
 
             if (result)
+            {
                 LoadData();
+                ResetForm();
+            }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -187,6 +196,13 @@ namespace IOTSystem.WinUI
             tbxName.Texts = balance.Name;
             tbxDescription.Texts = balance.Description;
             nudAmount.Value = balance.Amount;
+        }
+
+        private void ResetForm()
+        {
+            tbxName.Texts = string.Empty;
+            tbxDescription.Texts = string.Empty;
+            nudAmount.Value = 0;
         }
     }
 }

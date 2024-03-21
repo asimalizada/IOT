@@ -76,6 +76,7 @@
     <Compile Include="Business\Abstract\IUserService.cs" />
     <Compile Include="Business\BusinessModule.cs" />
     <Compile Include="Business\Concrete\BalanceService.cs" />
+    <Compile Include="Business\Concrete\BaseService.cs" />
     <Compile Include="Business\Concrete\OutcomeReasonService.cs" />
     <Compile Include="Business\Concrete\IncomeReasonService.cs" />
     <Compile Include="Business\Concrete\IncomeService.cs" />
@@ -106,10 +107,14 @@
     <Compile Include="Entities\Concrete\IncomeReason.cs" />
     <Compile Include="Entities\Concrete\Outcome.cs" />
     <Compile Include="Entities\Concrete\User.cs" />
+    <Compile Include="Entities\Dto\BalanceDto.cs" />
+    <Compile Include="Entities\Dto\IncomeDto.cs" />
+    <Compile Include="Entities\Dto\OutcomeDto.cs" />
     <Compile Include="Extensions\DbSetExtensions.cs" />
     <Compile Include="Extensions\IQueryableExtensions.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Helpers\FormHelper.cs" />
     <Compile Include="Helpers\HashingHelper.cs" />
     <Compile Include="Helpers\Messages.cs" />
     <Compile Include="IoC\InstanceFactory.cs" />

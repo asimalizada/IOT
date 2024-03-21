@@ -132,6 +132,7 @@
             this.cmbAlternatives.Size = new System.Drawing.Size(215, 38);
             this.cmbAlternatives.TabIndex = 26;
             this.cmbAlternatives.Texts = "";
+            this.cmbAlternatives.OnSelectedIndexChanged += new System.EventHandler(this.cmbAlternatives_OnSelectedIndexChanged);
             // 
             // label1
             // 
@@ -148,7 +149,7 @@
             // 
             this.cmbBalances.BackColor = System.Drawing.Color.WhiteSmoke;
             this.cmbBalances.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.cmbBalances.BorderSize = 1;
+            this.cmbBalances.BorderSize = 2;
             this.cmbBalances.DisplayMember = "Id";
             this.cmbBalances.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown;
             this.cmbBalances.Font = new System.Drawing.Font("Comic Sans MS", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -159,7 +160,7 @@
             this.cmbBalances.Location = new System.Drawing.Point(716, 210);
             this.cmbBalances.MinimumSize = new System.Drawing.Size(200, 30);
             this.cmbBalances.Name = "cmbBalances";
-            this.cmbBalances.Padding = new System.Windows.Forms.Padding(1);
+            this.cmbBalances.Padding = new System.Windows.Forms.Padding(2);
             this.cmbBalances.Size = new System.Drawing.Size(215, 38);
             this.cmbBalances.TabIndex = 24;
             this.cmbBalances.Texts = "";
@@ -316,7 +317,7 @@
             // 
             this.cmbReasons.BackColor = System.Drawing.Color.WhiteSmoke;
             this.cmbReasons.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.cmbReasons.BorderSize = 1;
+            this.cmbReasons.BorderSize = 2;
             this.cmbReasons.DisplayMember = "Id";
             this.cmbReasons.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown;
             this.cmbReasons.Font = new System.Drawing.Font("Comic Sans MS", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -327,7 +328,7 @@
             this.cmbReasons.Location = new System.Drawing.Point(716, 148);
             this.cmbReasons.MinimumSize = new System.Drawing.Size(200, 30);
             this.cmbReasons.Name = "cmbReasons";
-            this.cmbReasons.Padding = new System.Windows.Forms.Padding(1);
+            this.cmbReasons.Padding = new System.Windows.Forms.Padding(2);
             this.cmbReasons.Size = new System.Drawing.Size(215, 38);
             this.cmbReasons.TabIndex = 13;
             this.cmbReasons.Texts = "";

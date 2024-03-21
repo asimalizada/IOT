@@ -2,6 +2,7 @@
 using IOTSystem.Business;
 using IOTSystem.Business.Abstract;
 using IOTSystem.Entities.Concrete;
+using IOTSystem.Entities.Dto;
 using IOTSystem.Helpers;
 using IOTSystem.IoC;
 using System;
@@ -18,10 +19,10 @@ namespace IOTSystem.WinUI
         private readonly IOutcomeReasonService _reasonService;
         private readonly IBalanceService _balanceService;
 
-        private List<Outcome> _outcomes;
+        private List<OutcomeDto> _outcomes;
         private List<OutcomeReason> _reasons;
-        private List<Balance> _balances;
-        private List<Outcome> _alternatives;
+        private List<BalanceDto> _balances;
+        private List<OutcomeDto> _alternatives;
 
         public OutcomeForm()
         {
@@ -38,6 +39,16 @@ namespace IOTSystem.WinUI
             LoadReasons();
             LoadBalances();
             LoadAlternatives();
+
+            FormHelper.HideColumnsOfDgw(dgwOutcomes, "ReasonId", "Alternative", "BalanceId");
+            FormHelper.SortColumnsOfDgw(dgwOutcomes, "Id", "Name", "Description", "BalanceName", "ReasonName", "AlternativeName", "Date", "Amount");
+            FormHelper.RenameColumnsOfDgw(dgwOutcomes, new Dictionary<string, string>
+            {
+                { "ReasonName", "Reason" },
+                { "AlternativeName", "Alternative" },
+                { "IsAlternative", "Is Alternative" },
+                { "BalanceName", "Balance" }
+            });
         }
 
         private void LoadData()
@@ -205,7 +216,8 @@ namespace IOTSystem.WinUI
 
             var result = HandleException(() =>
             {
-                _service.Add(new Outcome
+                ValidateOutcome();
+                _service.Add(new OutcomeDto
                 {
                     Name = tbxName.Texts,
                     Description = tbxDescription.Texts,
@@ -219,7 +231,10 @@ namespace IOTSystem.WinUI
             });
 
             if (result)
+            {
                 LoadData();
+                ResetForm();
+            }
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -229,7 +244,8 @@ namespace IOTSystem.WinUI
 
             var result = HandleException(() =>
             {
-                _service.Update(new Outcome
+                ValidateOutcome();
+                _service.Update(new OutcomeDto
                 {
                     Id = Convert.ToInt32(dgwOutcomes.CurrentRow.Cells[0].Value),
                     Name = tbxName.Texts,
@@ -244,7 +260,10 @@ namespace IOTSystem.WinUI
             });
 
             if (result)
+            {
                 LoadData();
+                ResetForm();
+            }
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -258,7 +277,10 @@ namespace IOTSystem.WinUI
             });
 
             if (result)
+            {
                 LoadData();
+                ResetForm();
+            }
         }
 
         private void btnReasons_Click(object sender, EventArgs e)
@@ -287,7 +309,7 @@ namespace IOTSystem.WinUI
             var balanceId = (int)cmbBalances.SelectedValue;
             var balance = _balances.FirstOrDefault(b => b.Id == balanceId);
 
-            if(balance.Amount < nudAmount.Value)
+            if (balance.Amount < nudAmount.Value)
                 cmbBalances.BorderColor = Color.Red;
             else
                 cmbBalances.BorderColor = Color.FromArgb(32, 30, 45);
@@ -302,6 +324,54 @@ namespace IOTSystem.WinUI
                 cmbBalances.BorderColor = Color.Red;
             else
                 cmbBalances.BorderColor = Color.FromArgb(32, 30, 45);
+        }
+
+        private void ValidateOutcome()
+        {
+            var balanceId = (int)cmbBalances.SelectedValue;
+            var balance = _balances.FirstOrDefault(b => b.Id == balanceId);
+
+            if (balance.Amount < nudAmount.Value)
+                throw new Exception("Balance is lower than amount.");
+
+            if (!chkIsAlternative.Checked)
+            {
+                if (cmbAlternatives.SelectedValue is null)
+                    return;
+
+                var alternativeId = (int)cmbAlternatives.SelectedValue;
+                var alternative = _alternatives.FirstOrDefault(a => a.Id == alternativeId);
+
+                if (alternative.Amount > nudAmount.Value)
+                    throw new Exception("Alternative outcome amount must be lower than current amount.");
+            }
+        }
+
+        private void cmbAlternatives_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbAlternatives.SelectedValue is null)
+                return;
+
+            var alternativeId = (int)cmbAlternatives.SelectedValue;
+            var alternative = _alternatives.FirstOrDefault(a => a.Id == alternativeId);
+
+            if (alternative.Amount >= nudAmount.Value)
+                cmbAlternatives.BorderColor = Color.Red;
+            else
+                cmbBalances.BorderColor = Color.FromArgb(32, 30, 45);
+        }
+
+        private void ResetForm()
+        {
+            tbxName.Texts = null;
+            tbxDescription.Texts = null;
+            dtpDate.Value = DateTime.Now;
+            nudAmount.Value = 0;
+            cmbReasons.SelectedIndex = 0;
+            cmbBalances.SelectedIndex = 0;
+            chkIsAlternative.Checked = false;
+            cmbAlternatives.Enabled = true;
+            HandleSafe(() => { cmbAlternatives.SelectedIndex = 0; });
         }
     }
 }

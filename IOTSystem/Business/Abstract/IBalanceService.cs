@@ -1,18 +1,18 @@
-﻿using IOTSystem.Entities.Concrete;
+﻿using IOTSystem.Entities.Dto;
 using System.Collections.Generic;
 
 namespace IOTSystem.Business.Abstract
 {
     internal interface IBalanceService
     {
-        Balance Add(Balance balance);
+        BalanceDto Add(BalanceDto balance);
 
-        Balance Update(Balance balance);
+        BalanceDto Update(BalanceDto balance);
 
         void Delete(int id);
 
-        Balance Get(int id);
+        BalanceDto Get(int id);
 
-        List<Balance> GetAll();
+        List<BalanceDto> GetAll();
     }
 }
